@@ -4,6 +4,6 @@ client = WebClient(token='xoxb-9024374351126-9024493904003-9xArLdYy9HZkS5V2WV84p
 
 response = client.chat_postMessage(
     channel='#all-op-group-1',
-    text=""
+    text="2"
 )
 print(response)

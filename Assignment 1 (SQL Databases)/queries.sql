@@ -17,9 +17,9 @@ avg_price_by_category AS (
 SELECT
   c.customer_id,
   c.full_name,
-  SUM(oi.quantity)                 AS total_qty,          -- total items bought (post-filter)
-  SUM(oi.quantity * oi.unit_price) AS total_revenue,      -- revenue contributed
-  COUNT(DISTINCT oq.order_id)      AS orders_count,       -- unique orders in Q3
+  SUM(oi.quantity)                 AS total_qty,          
+  SUM(oi.quantity * oi.unit_price) AS total_revenue,      
+  COUNT(DISTINCT oq.order_id)      AS orders_count,    
   MIN(oq.order_date)               AS first_order_q3,
   MAX(oq.order_date)               AS last_order_q3
 FROM orders_q3_2025 oq
@@ -50,30 +50,5 @@ JOIN categories c ON c.category_id = p.category_id
 WHERE c.category_name = 'Media & Collectibles'
 ORDER BY category_name, product_name;
 
--- -- -- -- 
 
--- -- A brief explanation of my schema and query logic
--- Basically a "definitly just some regular small shop" database.
--- There are 5 tables - "customers", "categories", products", "orders", and "order_items".
--- Each connects with foreign keys like a normal store setup.
--- Everything lives in three files:
--- create_tables.sql - makes the tables.
--- insert_data.sql - fills them with themed data.
--- queries.sql - the actual query logic.
-
--- -- Schema idea
--- "customers": people buying stuff (id, name, email, etc.)
--- "categories": product types like Apparel & Costumes, Media & Collectibles, etc.
--- "products": items with prices and categories.
--- "orders": when someone buys something.
--- "order_items": connects orders and products, with quantity and price.
-
--- -- Query logic The main query does one big analysis:
--- Uses CTEs to limit data to Q3 2025 orders and to get average price per category.
--- Joins all five tables.
--- Filters products that cost more than their category average (big money).
--- Keeps only specific categories and customers who bought at least two items.
--- Sorts by revenue, supposed to show the top 5.
-
--- Then theres also a piece of code with UNION function for the bonus task
 
